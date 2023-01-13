@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Nov 22 15:49:12 2022
-
-@author: kanan
-"""
-
-# -*- coding: utf-8 -*-
 import numpy as np
 import pandas as pd
 import random
@@ -17,20 +10,17 @@ def readDataset():
     global trainXDataset
     global trainYDataset
 
-    #trainXDataset = pd.read_csv(sys.argv[1], names=['X', 'Y'], header = None)
-    trainXDataset = pd.read_csv('C:\\Users\\kanan\\OneDrive\\Desktop\\Study Material\\MS\\AI\\HW3\\dataSet\\gaussian_train_data.csv', names=['X', 'Y'], header = None)
+    trainXDataset = pd.read_csv(sys.argv[1], names=['X', 'Y'], header = None)
     trainXDataset['X2'] = np.square(trainXDataset['X'])
     trainXDataset['Y2'] = np.square(trainXDataset['Y'])
     trainXDataset['XY'] = np.multiply(trainXDataset['X'], trainXDataset['Y'])
     trainXDataset['sinX'] = np.sin(trainXDataset['X'])
     trainXDataset['sinY'] = np.sin(trainXDataset['Y'])
 
-    #trainYDataset = pd.read_csv(sys.argv[2], header = None)
-    trainYDataset = pd.read_csv("C:\\Users\\kanan\\OneDrive\\Desktop\\Study Material\\MS\\AI\\HW3\\dataSet\\gaussian_train_label.csv", header = None)
+    trainYDataset = pd.read_csv(sys.argv[2], header = None)
     trainXDataset = np.array(trainXDataset, dtype = float)
     trainYDataset = np.array(trainYDataset, dtype = float)
-    print(trainYDataset.shape)
-
+    
 def initialize():
     global weight1
     global weight2
@@ -74,9 +64,8 @@ def backPropagation(learningRate, trainData, trainLabel, batchSize):
     bias2 = np.subtract(bias2, learningRate * ((np.matmul(np.subtract(outputActivated, trainLabel).T, np.ones([batchSize,1])).T) / batchSize))
 
 def predict():
-    testYDataset = pd.read_csv("C:\\Users\\kanan\\OneDrive\\Desktop\\Study Material\\MS\\AI\\HW3\\dataSet\\gaussian_test_label.csv", header = None)
-    #testXDataset = pd.read_csv(sys.argv[3], names=['X', 'Y'], header = None)
-    testXDataset = pd.read_csv("C:\\Users\\kanan\\OneDrive\\Desktop\\Study Material\\MS\\AI\\HW3\\dataSet\\gaussian_test_data.csv", names=['X', 'Y'], header = None)
+    testXDataset = pd.read_csv(sys.argv[3], names=['X', 'Y'], header = None)
+    testYDataset = pd.read_csv(sys.argv[4],  header = None)
     testXDataset["X2"] = np.square(testXDataset["X"])
     testXDataset["Y2"] = np.square(testXDataset["Y"])
     testXDataset["XY"] = np.multiply(testXDataset["X"],testXDataset["Y"])
